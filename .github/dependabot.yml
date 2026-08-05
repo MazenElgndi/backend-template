@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    # Dependabot only opens PRs — it never merges anything itself. The CI
+    # workflow in .github/workflows/ci.yml runs against every PR it opens,
+    # so a bad update gets caught by the test suite before merge, not after.
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

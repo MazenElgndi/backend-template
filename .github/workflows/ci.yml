@@ -1,0 +1,33 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # No lint script exists yet in this template (see 3.x / 5.x items in
+      # the score-improvement roadmap) — add a `npm run lint` step here
+      # once eslint is wired in, rather than a step that fails on every run.
+
+      - name: Run tests
+        run: npm test
+
+      # No build step: this is a plain Node/Express backend with no
+      # bundler in the loop, so there's nothing to compile.
+
+      - name: Audit dependencies (high/critical only)
+        run: npm audit --audit-level=high
